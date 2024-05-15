@@ -3,7 +3,7 @@ session_start();
 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
     require_once "../conexion.php";
     $id_user = $_SESSION['idUser'];
-    $query = mysqli_query($conexion, "SELECT p.*, s.nombre AS sala, u.nombre FROM pedidos p INNER JOIN salas s ON p.id_sala = s.id INNER JOIN usuarios u ON p.id_usuario = u.id");
+    $query = mysqli_query($conexion, "SELECT p.*, s.direccion AS sucursal, u.nombre FROM pedidos p INNER JOIN sucursal s ON p.id_sucursal = s.id INNER JOIN usuarios u ON p.id_usuario = u.id");
     include_once "includes/header.php";
 ?>
     <div class="card">
@@ -16,8 +16,8 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Sala</th>
-                            <th>Mesa</th>
+                            <th>Sucursal</th>
+                            <th>Caja</th>
                             <th>Fecha</th>
                             <th>Total</th>
                             <th>Usuario</th>
@@ -34,8 +34,8 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                         ?>
                             <tr>
                                 <td><?php echo $row['id']; ?></td>
-                                <td><?php echo $row['sala']; ?></td>
-                                <td><?php echo $row['num_mesa']; ?></td>
+                                <td><?php echo $row['sucursal']; ?></td>
+                                <td><?php echo $row['num_caja']; ?></td>
                                 <td><?php echo $row['fecha']; ?></td>
                                 <td><?php echo $row['total']; ?></td>
                                 <td><?php echo $row['nombre']; ?></td>

@@ -2,8 +2,8 @@
 session_start();
 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
 $fecha = date('Y-m-d');
-$id_sala = $_GET['id_sala'];
-$mesa = $_GET['mesa'];
+$id_sucursal = $_GET['id_sucursal'];
+$caja = $_GET['caja'];
 include_once "includes/header.php";
 ?>
 <div class="card card-primary card-outline">
@@ -14,19 +14,19 @@ include_once "includes/header.php";
         </h3>
     </div>
     <div class="card-body">
-        <input type="hidden" id="id_sala" value="<?php echo $_GET['id_sala']; ?>">
-        <input type="hidden" id="mesa" value="<?php echo $_GET['mesa']; ?>">
+        <input type="hidden" id="id_sucursal" value="<?php echo $_GET['id_sucursal']; ?>">
+        <input type="hidden" id="caja" value="<?php echo $_GET['caja']; ?>">
         <div class="row">
             <?php
             include "../conexion.php";
-            $query = mysqli_query($conexion, "SELECT * FROM pedidos WHERE id_sala = $id_sala AND num_mesa = $mesa AND estado = 'PENDIENTE'");
+            $query = mysqli_query($conexion, "SELECT * FROM pedidos WHERE id_sucursal = $id_sucursal AND num_caja = $caja AND estado = 'PENDIENTE'");
             $result = mysqli_fetch_assoc($query);
             if (!empty($result)) { ?>
                 <div class="col-md-12 text-center">
                     <div class="col-12">
                         Fecha: <?php echo $result['fecha']; ?>
                         <hr>
-                        Mesa: <?php echo $_GET['mesa']; ?>
+                        Caja: <?php echo $_GET['caja']; ?>
                     </div>
 
                     <div class="bg-gray py-2 px-3 mt-4">
@@ -35,7 +35,7 @@ include_once "includes/header.php";
                         </h2>
                     </div>
                     <hr>
-                    <h3>Platos</h3>
+                    <h3>Productos</h3>
                     <div class="row">
                     <?php $id_pedido = $result['id'];
                     $query1 = mysqli_query($conexion, "SELECT * FROM detalle_pedidos WHERE id_pedido = $id_pedido");

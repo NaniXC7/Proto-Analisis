@@ -31,7 +31,7 @@ $totalVentas = mysqli_fetch_assoc($query5);
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="platos.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="productos.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -46,7 +46,7 @@ $totalVentas = mysqli_fetch_assoc($query5);
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="salas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="sucursales.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

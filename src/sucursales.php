@@ -7,7 +7,7 @@ if ($_SESSION['rol'] != 1) {
 include "../conexion.php";
 if (!empty($_POST)) {
     $alert = "";
-    if (empty($_POST['nombre']) || empty($_POST['mesas'])) {
+    if (empty($_POST['direccion']) || empty($_POST['cajas'])) {
         $alert = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
                         Todo los campos son obligatorio
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -16,24 +16,24 @@ if (!empty($_POST)) {
                     </div>';
     } else {
         $id = $_POST['id'];
-        $nombre = $_POST['nombre'];
-        $mesas = $_POST['mesas'];
+        $direccion = $_POST['direccion'];
+        $cajas = $_POST['cajas'];
         $result = 0;
         if (empty($id)) {
-            $query = mysqli_query($conexion, "SELECT * FROM sucursal WHERE nombre = '$nombre' AND estado = 1");
+            $query = mysqli_query($conexion, "SELECT * FROM sucursal WHERE direccion = '$direccion' AND estado = 1");
             $result = mysqli_fetch_array($query);
             if ($result > 0) {
                 $alert = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        La sala ya existe
+                        La sucursal ya existe
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>';
             } else {
-                $query_insert = mysqli_query($conexion, "INSERT INTO salas (nombre,mesas) values ('$nombre', '$mesas')");
+                $query_insert = mysqli_query($conexion, "INSERT INTO sucursal (direccion,cajas) values ('$direccion', '$cajas')");
                 if ($query_insert) {
                     $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Sala registrado
+                        Sucursal registrada
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -48,10 +48,10 @@ if (!empty($_POST)) {
                 }
             }
         } else {
-            $sql_update = mysqli_query($conexion, "UPDATE salas SET nombre = '$nombre' , mesas = '$mesas' WHERE id = $id");
+            $sql_update = mysqli_query($conexion, "UPDATE sucursal SET direccion = '$direccion' , cajas = '$cajas' WHERE id = $id");
             if ($sql_update) {
                 $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Sala Modificado
+                        Sucursal Modificado
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -80,14 +80,14 @@ include_once "includes/header.php";
                 <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label for="nombre" class="text-dark font-weight-bold">Nombre</label>
-                                <input type="text" placeholder="Ingrese Nombre" name="nombre" id="nombre" class="form-control">
+                                <label for="nombre" class="text-dark font-weight-bold">Direccion</label>
+                                <input type="text" placeholder="Ingrese Direccion" name="direccion" id="direccion" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="mesas" class="text-dark font-weight-bold">Mesas</label>
-                                <input type="number" placeholder="Mesas" name="mesas" id="mesas" class="form-control">
+                                <label for="mesas" class="text-dark font-weight-bold">Cajas</label>
+                                <input type="number" placeholder="Cajas" name="cajas" id="cajas" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-5 text-center">

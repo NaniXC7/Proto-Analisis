@@ -310,6 +310,7 @@ function editarUsuario(id) {
         success: function (response) {
             const datos = JSON.parse(response);
             $('#nombre').val(datos.nombre);
+            $('#sucur').val(datos.id_sucursal);
             $('#rol').val(datos.rol);
             $('#correo').val(datos.correo);
             $('#id').val(datos.id);
@@ -334,7 +335,7 @@ function editarPlato(id) {
         },
         success: function (response) {
             const datos = JSON.parse(response);
-            $('#plato').val(datos.nombre);
+            $('#producto').val(datos.nombre);
             $('#precio').val(datos.precio);
             $('#foto_actual').val(datos.foto_actual);
             $('#id').val(datos.id);

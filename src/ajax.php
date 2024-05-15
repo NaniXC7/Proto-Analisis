@@ -47,7 +47,7 @@ if (isset($_GET['detalle'])) {
     while ($row = mysqli_fetch_assoc($consulta)) {
         $total += $row['cantidad'] * $row['precio'];
     }
-    $insertar = mysqli_query($conexion, "INSERT INTO pedidos (id_sucursal, num_caja, total, observacion, id_usuario) VALUES ($id_sucursal, $caja, '$total', '$observacion', ' $id_user)");
+    $insertar = mysqli_query($conexion, "INSERT INTO pedidos (id_sucursal, num_caja, total, observacion, id_usuario) VALUES ($id_sucursal, $caja, $total, '$observacion', $id_user)");
     $id_pedido = mysqli_insert_id($conexion);
     if ($insertar == 1) {
         //$insertarDet = 0;
@@ -56,7 +56,7 @@ if (isset($_GET['detalle'])) {
             $nombre = $dato['nombre'];
             $cantidad = $dato['cantidad'];
             $precio = $dato['precio'];
-            $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
+            $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', $precio, $cantidad, $id_pedido)");
         }
         if ($insertarDet > 0) {
             $eliminar = mysqli_query($conexion, "DELETE FROM temp_pedidos WHERE id_usuario = $id_user");

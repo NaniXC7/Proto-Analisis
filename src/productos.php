@@ -91,7 +91,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                         <div class="form-group">
                                             <input type="hidden" id="id" name="id">
                                             <input type="hidden" id="foto_actual" name="foto_actual">
-                                            <label for="plato" class=" text-dark font-weight-bold">Producto</label>
+                                            <label for="producto" class=" text-dark font-weight-bold">Producto</label>
                                             <input type="text" placeholder="Ingrese nombre del producto" name="producto" id="producto" class="form-control">
                                         </div>
                                     </div>

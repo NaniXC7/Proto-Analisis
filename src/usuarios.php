@@ -10,8 +10,9 @@ if (!empty($_POST)) {
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
     $rol = $_POST['rol'];
+    $sucursal = $_POST['sucursal'];
     $alert = "";
-    if (empty($nombre) || empty($correo) || empty($rol)) {
+    if (empty($nombre) || empty($correo) || empty($rol) || empty($sucursal)) {
         $alert = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
                     Todo los campos son obligatorio
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -40,7 +41,7 @@ if (!empty($_POST)) {
                     </button>
                 </div>';
                 } else {
-                    $query_insert = mysqli_query($conexion, "INSERT INTO usuarios (nombre,correo,rol,pass) values ('$nombre', '$correo', '$rol', '$pass')");
+                    $query_insert = mysqli_query($conexion, "INSERT INTO `usuarios` (`nombre`, `correo`, `pass`, `id_sucursal`, `rol`, `estado`) VALUES ('$nombre', '$correo', '$pass', '$sucursal', '$rol', '1');");
                     if ($query_insert) {
                         $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Usuario Registrado
@@ -59,7 +60,7 @@ if (!empty($_POST)) {
                 }
             }
         } else {
-            $sql_update = mysqli_query($conexion, "UPDATE usuarios SET nombre = '$nombre', correo = '$correo' , rol = '$rol' WHERE idusuario = $id");
+            $sql_update = mysqli_query($conexion, "UPDATE usuarios SET nombre = '$nombre', correo = '$correo' , id_sucursal = '$sucursal', rol = '$rol' WHERE idusuario = $id");
             if ($sql_update) {
                 $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Usuario Modificado
@@ -78,6 +79,7 @@ if (!empty($_POST)) {
         }
     }
 }
+$query_sucursales = mysqli_query($conexion, "SELECT id, direccion FROM sucursal");
 include "includes/header.php";
 ?>
 <div class="card">
@@ -102,16 +104,29 @@ include "includes/header.php";
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        <label for="sucur">Sucursal</label>
+                        <select id="sucur" class="form-control" name="sucur">
+                            <option >Seleccionar</option>
+                            <?php while($sucursales = mysqli_fetch_array($query_sucursales)){?>
+                                <option value = "<?php echo $sucursales['id']?>"><?php echo $sucursales['direccion']?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
                         <label for="rol">Rol</label>
                         <select id="rol" class="form-control" name="rol">
                             <option>Seleccionar</option>
                             <option value="1">Administrador</option>
                             <option value="2">Cocinero</option>
-                            <option value="3">Mozo</option>
+                            <option value="3">Cajero</option>
                         </select>
                     </div>
 
                 </div>
+                
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="pass">Contraseña</label>
@@ -131,13 +146,15 @@ include "includes/header.php";
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Correo</th>
+                <th>Sucursal</th>
                 <th>Rol</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $query = mysqli_query($conexion, "SELECT * FROM usuarios WHERE estado = 1");
+            $query = mysqli_query($conexion, "SELECT u.id, u.nombre, u.correo, s.direccion, u.rol, u.estado FROM usuarios u 
+                                            inner join sucursal s on u.id_sucursal = s.id WHERE u.estado = 1");
             $result = mysqli_num_rows($query);
             if ($result > 0) {
                 while ($data = mysqli_fetch_assoc($query)) {
@@ -146,13 +163,14 @@ include "includes/header.php";
                     }else if($data['rol'] == 2){
                         $rol = '<span class="badge badge-info">Cocinero</span>';
                     }else{
-                        $rol = '<span class="badge badge-warning">Mozo</span>';
+                        $rol = '<span class="badge badge-warning">Cajero</span>';
                     }
                     ?>
                     <tr>
                         <td><?php echo $data['id']; ?></td>
                         <td><?php echo $data['nombre']; ?></td>
                         <td><?php echo $data['correo']; ?></td>
+                        <td><?php echo $data['direccion']; ?></td>
                         <td><?php echo $rol; ?></td>
                         <td>
                             <a href="#" onclick="editarUsuario(<?php echo $data['id']; ?>)" class="btn btn-success"><i class='fas fa-edit'></i></a>
