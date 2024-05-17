@@ -47,7 +47,7 @@ if (isset($_GET['detalle'])) {
     while ($row = mysqli_fetch_assoc($consulta)) {
         $total += $row['cantidad'] * $row['precio'];
     }
-    $insertar = mysqli_query($conexion, "INSERT INTO pedidos (id_sucursal, num_caja, total, observacion, id_usuario) VALUES ($id_sucursal, $caja, $total, '$observacion', $id_user)");
+    $insertar = mysqli_query($conexion, "INSERT INTO pedidos (id, id_sucursal, num_caja, total, observacion, id_usuario) VALUES ($id_sucursal, $caja, $total, '$observacion', $id_user)");
     $id_pedido = mysqli_insert_id($conexion);
     if ($insertar == 1) {
         //$insertarDet = 0;
