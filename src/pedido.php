@@ -16,7 +16,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                     <div class="tab-content" id="vert-tabs-right-tabContent">
                         <div class="tab-pane fade show active" id="vert-tabs-right-home" role="tabpanel" aria-labelledby="vert-tabs-right-home-tab">
                             <input type="hidden" id="id_sucursal" value="<?php echo $_GET['id_sucursal'] ?>">
-                            <input type="hidden" id="caja" value="<?php echo $_GET['caja'] ?>">
+                            <input type="hidden" id="caja" value="<?php echo $_GET['cajas'] ?>">
                             <div class="row">
                                 <?php
                                 include "../conexion.php";
@@ -39,7 +39,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                             <div class="mt-4">
                                                 <a class="btn btn-primary btn-block btn-flat addDetalle" href="#" data-id="<?php echo $data['id']; ?>">
                                                     <i class="fas fa-cart-plus mr-2"></i>
-                                                    Agregar <?php echo $data['id']; ?>
+                                                    Agregar
                                                 </a>
                                             </div>
                                         </div>
@@ -54,6 +54,16 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                 <label for="observacion">Observaciones</label>
                                 <textarea id="observacion" class="form-control" rows="3" placeholder="Observaciones"></textarea>
                             </div>
+                            <hr>
+
+                            <div class="form-group">
+                            <label for="pago">Método de pago</label>
+                            <select id="pago" class="form-control" name="pago">
+                                <option>Seleccionar</option>
+                                <option value="1">Efectivo</option>
+                                <option value="2">Tarjeta</option>
+                            </select>
+                        </div>
                             <button class="btn btn-primary" type="button" id="realizar_pedido">Realizar pedido</button>
                         </div>
                     </div>

@@ -54,7 +54,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                     }
                 }
             } else {
-                $query_update = mysqli_query($conexion, "UPDATE platos SET nombre = '$producto', precio=$precio, imagen='$nombre' WHERE id = $id");
+                $query_update = mysqli_query($conexion, "UPDATE productos SET nombre = '$producto', precio=$precio, imagen='$nombre' WHERE id = $id");
                 if ($query_update) {
                     if (!empty($foto['name'])) {
                         move_uploaded_file($foto['tmp_name'], $nombre);

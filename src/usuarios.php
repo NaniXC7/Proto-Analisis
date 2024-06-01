@@ -10,7 +10,7 @@ if (!empty($_POST)) {
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
     $rol = $_POST['rol'];
-    $sucursal = $_POST['sucursal'];
+    $sucursal = $_POST['sucur'];
     $alert = "";
     if (empty($nombre) || empty($correo) || empty($rol) || empty($sucursal)) {
         $alert = '<div class="alert alert-warning alert-dismissible fade show" role="alert">

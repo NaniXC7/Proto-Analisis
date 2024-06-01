@@ -36,9 +36,9 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                     <div class="card-footer">
                                         <div class="description-block">
                                             <?php if (empty($resultPedido)) {
-                                                echo '<a class="btn btn-outline-info" href="pedido.php?id_sucursal=' . $id . '&caja=' . $item . '">Atender</a>';
+                                                echo '<a class="btn btn-outline-info" href="pedido.php?id_sucursal=' . $id . '&cajas=' . $item . '">Atender</a>';
                                             } else {
-                                                echo '<a class="btn btn-outline-success" href="finalizar.php?id_sucursal=' . $id . '&caja=' . $item . '">Finalizar</a>';
+                                                echo '<a class="btn btn-outline-success" href="finalizar.php?id_sucursal=' . $id . '&cajas=' . $item . '">Finalizar</a>';
                                             } ?>
 
                                         </div>
@@ -46,6 +46,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                     </div>
                                 </div>
                             </div>
+                          
 
                 <?php $item++;
                         }

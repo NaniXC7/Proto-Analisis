@@ -42,12 +42,13 @@ if (isset($_GET['detalle'])) {
     $id_user = $_SESSION['idUser'];
     $caja = $_GET['caja'];
     $observacion = $_GET['observacion'];
+    $pago = $_GET['pago'];
     $consulta = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN productos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
     $total = 0;
     while ($row = mysqli_fetch_assoc($consulta)) {
         $total += $row['cantidad'] * $row['precio'];
     }
-    $insertar = mysqli_query($conexion, "INSERT INTO pedidos (id, id_sucursal, num_caja, total, observacion, id_usuario) VALUES ($id_sucursal, $caja, $total, '$observacion', $id_user)");
+    $insertar = mysqli_query($conexion, "INSERT INTO pedidos (id_sucursal, num_caja, total, observacion, id_usuario, id_tipo_pago) VALUES ($id_sucursal, $caja, $total, '$observacion', $id_user, $pago)");
     $id_pedido = mysqli_insert_id($conexion);
     if ($insertar == 1) {
         //$insertarDet = 0;

@@ -3,38 +3,41 @@ session_start();
 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
 $fecha = date('Y-m-d');
 $id_sucursal = $_GET['id_sucursal'];
-$caja = $_GET['caja'];
+$caja = $_GET['cajas'];
+
 include_once "includes/header.php";
 ?>
 <div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">
             <i class="fas fa-edit"></i>
-            Platos
+            Productos
         </h3>
     </div>
     <div class="card-body">
         <input type="hidden" id="id_sucursal" value="<?php echo $_GET['id_sucursal']; ?>">
-        <input type="hidden" id="caja" value="<?php echo $_GET['caja']; ?>">
+        <input type="hidden" id="caja" value="<?php echo $_GET['cajas']; ?>">
         <div class="row">
             <?php
             include "../conexion.php";
-            $query = mysqli_query($conexion, "SELECT * FROM pedidos WHERE id_sucursal = $id_sucursal AND num_caja = $caja AND estado = 'PENDIENTE'");
+            $query = mysqli_query($conexion, "SELECT p.*, tp.pago FROM pedidos p INNER JOIN tipo_pago tp ON p.id_tipo_pago = tp.id WHERE p.id_sucursal = $id_sucursal AND p.num_caja = $caja AND p.estado = 'PENDIENTE'");
             $result = mysqli_fetch_assoc($query);
             if (!empty($result)) { ?>
                 <div class="col-md-12 text-center">
                     <div class="col-12">
                         Fecha: <?php echo $result['fecha']; ?>
                         <hr>
-                        Caja: <?php echo $_GET['caja']; ?>
+                        Caja: <?php echo $_GET['cajas']; ?>
+                        <hr>
+                        Método de pago: <?php echo $result['pago']; ?>
                     </div>
 
                     <div class="bg-gray py-2 px-3 mt-4">
                         <h2 class="mb-0">
-                            $<?php echo $result['total']; ?>
+                            Q<?php echo $result['total']; ?>
                         </h2>
                     </div>
-                    <hr>
+                    <hr>                
                     <h3>Productos</h3>
                     <div class="row">
                     <?php $id_pedido = $result['id'];
@@ -47,7 +50,7 @@ include_once "includes/header.php";
                                 <h5 class="widget-user-desc"><?php echo $data1['precio']; ?></h5>
                             </div>
                             <div class="widget-user-image">
-                                <img class="img-circle elevation-2" src="../assets/img/mesa.jpg" alt="User Avatar">
+                                <img class="img-circle elevation-2" src="../assets/img/default.png" alt="User Avatar">
                             </div>
                             <div class="card-footer">
                                 <div class="description-block">

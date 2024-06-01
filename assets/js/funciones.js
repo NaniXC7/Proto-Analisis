@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var id_sucursal = $('#id_sucursal').val();
         var caja = $('#caja').val();
         var observacion = $('#observacion').val();
+        var pago = $('#pago').val();
         $.ajax({
             url: 'ajax.php',
             async: true,
@@ -46,7 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 procesarPedido: action,
                 id_sucursal: id_sucursal,
                 caja: caja,
-                observacion: observacion
+                observacion: observacion,
+                pago: pago
             },
             success: function (response) {
                 const res = JSON.parse(response);
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         timer: 2000
                     })
                     setTimeout(() => {
-                        window.location = 'cajas.php?id_sucursal=' + id_sucursal + '&caja=' + res.mensaje;
+                        window.location = 'cajas.php?id_sucursal=' + id_sucursal + '&cajas=' + res.mensaje;
                     }, 1500);
                 } else {
                     Swal.fire({
@@ -100,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         timer: 2000
                     })
                     setTimeout(() => {
-                        window.location = 'cajas.php?id_sucursal=' + id_sucursal + '&caja=' + res.mensaje;
+                        window.location = 'cajas.php?id_sucursal=' + id_sucursal + '&cajas=' + res.mensaje;
                     }, 1500);
                 } else {
                     Swal.fire({
